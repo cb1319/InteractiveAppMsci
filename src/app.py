@@ -6,8 +6,10 @@ import pathlib
 app = Dash(__name__)
 server = app.server
 
-file_path = "/rds/general/user/cb1319/home/GEOM3D/Geom3D/fragment_experiment_2/interactive_results.pkl"
-morgan_keys = pd.read_pickle(file_path)
+this_dir = pathlib.Path(__file__).parent
+feature_path = this_dir.parent / 'data/interactive_results.pkl'
+
+morgan_keys = pd.read_pickle(feature_path)
 
 fig = go.Figure(data=[
     go.Scatter(
