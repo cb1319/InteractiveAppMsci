@@ -3,4 +3,4 @@ pandas==2.2.2
 pathlib==1.0.1
 rdkit==2023.9.5
 gunicorn
-dashtools
+dash-tools
