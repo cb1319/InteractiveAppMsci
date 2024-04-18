@@ -173,4 +173,4 @@ def update_graph(graph_hoverData, pca_hoverData, x_axis, y_target, *n_clicks):
     return fig, show_tooltip, bbox, children
 
 if __name__ == "__main__":
-    app.run_server(debug=True, port=8057)
+    app.run_server(debug=True)
