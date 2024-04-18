@@ -147,7 +147,7 @@ def update_graph(graph_hoverData, pca_hoverData, x_axis, y_target, *n_clicks):
         plot_bgcolor='rgba(255,255,255,0.1)',
         width=800,
         height=400,
-        title='Effects of models targets and properties on errors associated to each fragment'
+        title='Effects of models targets and properties on errors associated to each fragment (tick models to show)'
     )
 
     # Determine if tooltip should be shown
