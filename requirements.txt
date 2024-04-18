@@ -4,3 +4,4 @@ pathlib==1.0.1
 rdkit==2023.9.5
 gunicorn
 dash-tools
+dash-bootstrap-components
