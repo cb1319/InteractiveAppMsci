@@ -4,9 +4,6 @@ import pandas as pd
 import pathlib
 import dash_bootstrap_components as dbc
 
-app = Dash(__name__)
-server = app.server
-
 this_dir = pathlib.Path(__file__).parent
 feature_path = this_dir.parent / 'data/interactive_results.pkl'
 
@@ -47,15 +44,37 @@ pca_fig.update_layout(
     title='Reduced dimensionality visualisation of fragments using PCA'
 )
 
+colors = {
+    'background': '#E6E6FA',
+    'text': '#000000'
+}
+
 # Initialize Dash app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-
+server = app.server
 # Define app layout
 app.layout = html.Div([
     dbc.Row([
+        html.Div(style={'margin': '0', 'padding': '0', 'overflowX': 'hidden'}, children=[
+            html.H1(children='MSci Project 2023-2024 Cyprien Bone - Interactive Dashboard',
+                style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Arial'}),
+            html.H2(children='Fragments Scaffold Explorer',
+                style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Arial'}),
+            html.P(children='This dashboard allows you to visualise the effect of different models, targets, and properties on GNN predictions for organic semiconductor fragments.',
+                style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Arial'}),
+        ])
+    ]),
+    dbc.Row([
         dbc.Col(
-            dcc.Graph(id="pca-graph", figure=pca_fig, clear_on_unhover=True)
+            # put the plot in the middle of the page
+            dcc.Graph(id="pca-graph", figure=pca_fig, clear_on_unhover=True),
+            # center the plot
+            width={'size': 10, 'offset': 2}
         )
+    ]),
+    dbc.Row([
+        html.H2(children='Model Performance Comparison',
+            style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Arial'}),
     ]),
     dbc.Row([
         dbc.Col(
@@ -79,7 +98,7 @@ app.layout = html.Div([
                     for model in models
                 ]),
             ]),
-            width=12
+            width={'size': 10, 'offset': 2}  # Center the graph
         )
     ])
 ])
