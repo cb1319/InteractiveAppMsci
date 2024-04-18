@@ -2,6 +2,6 @@ dash==2.16.1
 pandas==2.2.2
 pathlib==1.0.1
 rdkit==2023.9.5
+dash_bootstrap_components==1.6.0
 gunicorn
 dash-tools
-dash-bootstrap-components

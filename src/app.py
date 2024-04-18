@@ -10,7 +10,11 @@ server = app.server
 this_dir = pathlib.Path(__file__).parent
 feature_path = this_dir.parent / 'data/interactive_results.pkl'
 
+print(f'Loading data from {feature_path}')
+
 morgan_keys = pd.read_pickle(feature_path)
+
+print(f'Loaded data with shape {morgan_keys.shape}')
 
 # Define list of y-axis targets and models
 targets = ['IP', 'ES1', 'fosc1']
