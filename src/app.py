@@ -12,6 +12,11 @@ feature_path = this_dir.parent / 'data/interactive_results.pkl'
 
 morgan_keys = pd.read_pickle(feature_path)
 
+# Define list of y-axis targets and models
+targets = ['IP', 'ES1', 'fosc1']
+models = ['average', 'SchNet', 'DimeNet', 'DimeNetPlusPlus', 'PaiNN', 'Equiformer', 'SphereNet']
+x_axis = ['CT', 'MW', 'Similarity_Score', 'Cluster']
+
 # Create PCA scatter plot
 pca_fig = go.Figure(data=[
     go.Scatter(
