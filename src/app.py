@@ -52,55 +52,61 @@ colors = {
 # Initialize Dash app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
+
 # Define app layout
 app.layout = html.Div([
-    dbc.Row([
-        html.Div(style={'margin': '0', 'padding': '0', 'overflowX': 'hidden'}, children=[
-            html.H1(children='MSci Project 2023-2024 Cyprien Bone - Interactive Dashboard',
+    html.Div([
+        dbc.Row([
+            html.Div(style={'margin': '0', 'padding': '0', 'overflowX': 'hidden', 'justify-content': 'center'}, children=[
+                html.H1(children='MSci Project 2023-2024 Cyprien Bone - Interactive Dashboard',
+                    style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Arial'}),
+                html.H2(children='Fragments Scaffold Explorer',
+                    style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Arial'}),
+                html.P(children='This dashboard allows you to visualise the effect of different models, targets, and properties on GNN predictions for organic semiconductor fragments.',
+                    style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Arial'}),
+            ], className='w-100')  # Set full width for the row and center horizontally
+        ], justify='center'),  # Center horizontally
+        dbc.Row([
+            dbc.Col(
+                # put the plot in the middle of the page
+                dcc.Graph(id="pca-graph", figure=pca_fig, clear_on_unhover=True),
+                width={'size': 10}  # Set width to 10 out of 12 columns
+            )
+        ], justify='center'),  # Center horizontally
+        dbc.Row([
+            html.H2(children='Model Performance Comparison (tick buttons to show/hide models)',
                 style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Arial'}),
-            html.H2(children='Fragments Scaffold Explorer',
-                style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Arial'}),
-            html.P(children='This dashboard allows you to visualise the effect of different models, targets, and properties on GNN predictions for organic semiconductor fragments.',
-                style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Arial'}),
-        ])
-    ]),
-    dbc.Row([
-        dbc.Col(
-            # put the plot in the middle of the page
-            dcc.Graph(id="pca-graph", figure=pca_fig, clear_on_unhover=True),
-            # center the plot
-            width={'size': 10, 'offset': 2}
-        )
-    ]),
-    dbc.Row([
-        html.H2(children='Interactive Graphs Model Performance Analyis',
-            style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Arial'}),
-    ]),
-    dbc.Row([
-        dbc.Col(
-            html.Div([
-                dcc.Graph(id="graph", clear_on_unhover=True),
-                dcc.Tooltip(id="graph-tooltip"),
-                dcc.Dropdown(
-                    id='y-axis-target-dropdown',
-                    options=[{'label': target, 'value': target} for target in targets],
-                    value=targets[0],
-                    clearable=False,
-                ),
-                dcc.Dropdown(
-                    id='x-axis-dropdown',
-                    options=[{'label': x, 'value': x} for x in x_axis],
-                    value=x_axis[0],
-                    clearable=False,
-                ),
+        ], justify='center'),  # Center horizontally
+        dbc.Row([
+            dbc.Col(
                 html.Div([
-                    html.Button(id=f'y-axis-model-button-{model}', n_clicks=0, children=model, style={'margin-right': '10px'})
-                    for model in models
+                    dcc.Graph(id="graph", clear_on_unhover=True),
+                    dcc.Tooltip(id="graph-tooltip"),
+                    dcc.Dropdown(
+                        id='y-axis-target-dropdown',
+                        options=[{'label': target, 'value': target} for target in targets],
+                        value=targets[0],
+                        clearable=False,
+                    ),
+                    dcc.Dropdown(
+                        id='x-axis-dropdown',
+                        options=[{'label': x, 'value': x} for x in x_axis],
+                        value=x_axis[0],
+                        clearable=False,
+                    ),
+                    html.Div([
+                        html.Button(id=f'y-axis-model-button-{model}', n_clicks=0, children=model, style={'margin-right': '10px'})
+                        for model in models
+                    ]),
                 ]),
-            ]),
-            width={'size': 10, 'offset': 2}  # Center the graph
-        )
-    ])
+                width={'size': 10}  # Set width to 10 out of 12 columns
+            )
+        ], justify='center'),  # Center horizontally
+    ], style={'min-height': '90vh'}),  # Adjust the height as per your requirement
+    html.Footer(
+        "MSci Project 2023-2024 - Imperial College London, generated with the help of the Jelfs group, render, dash and ChatGPT",
+        style={'padding': '100px', 'background-color': '#f8f9fa', 'text-align': 'center', 'font-family': 'Arial', 'font-size': '15px'}
+    )
 ])
 
 # Define callback to update the graph
@@ -147,7 +153,7 @@ def update_graph(graph_hoverData, pca_hoverData, x_axis, y_target, *n_clicks):
         plot_bgcolor='rgba(255,255,255,0.1)',
         width=800,
         height=400,
-        title='Effects of models targets and properties on errors associated to each fragment (tick models to show)'
+        title='Effects of models targets and properties on errors associated to each fragment'
     )
 
     # Determine if tooltip should be shown
