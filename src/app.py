@@ -73,7 +73,7 @@ app.layout = html.Div([
         )
     ]),
     dbc.Row([
-        html.H2(children='Model Performance Comparison',
+        html.H2(children='Interactive Graphs Model Performance Analyis',
             style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Arial'}),
     ]),
     dbc.Row([
@@ -147,7 +147,7 @@ def update_graph(graph_hoverData, pca_hoverData, x_axis, y_target, *n_clicks):
         plot_bgcolor='rgba(255,255,255,0.1)',
         width=800,
         height=400,
-        title='Model Performance Comparison'
+        title='Effects of models targets and properties on errors associated to each fragment'
     )
 
     # Determine if tooltip should be shown
